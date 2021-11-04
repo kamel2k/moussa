@@ -1,0 +1,21 @@
+#board {
+    width: 100%;
+}
+
+#boards .board-list .board-list-item {
+    min-width: 210px;
+    min-height: 100px;
+    width: 210px;
+    height: 100px;
+    padding: 24px 0;
+    margin: 16px;
+    border-radius: 8px;
+    background: rgba(0,0,0,.12);
+    transition: box-shadow .15s ease-in;
+    cursor: pointer;
+}
+
+#boards .board-list .board-list-item.add-new-board {
+    background: rgba(0,0,0,.06);
+    border: 2px dashed hsla(0,0%,100%,.37);
+}

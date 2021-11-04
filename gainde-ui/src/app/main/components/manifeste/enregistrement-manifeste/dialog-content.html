@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>ATTENTION</h2>
+<mat-dialog-content class="mat-typography">
+  <p>En enregistrant un manifeste, vous créer un acte juridique faisant foi
+      jusqu'à inscription de faux.</p>
+  <p>Il appartient au consignataire de vérifier qu'il n'effectue pas plusieurs fois 
+      l'enregistrement du même titre de transport.</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Annuler</button>
+  <button mat-button color="accent" [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+</mat-dialog-actions>

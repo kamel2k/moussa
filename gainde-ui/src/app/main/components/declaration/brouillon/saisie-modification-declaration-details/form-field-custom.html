@@ -1,0 +1,28 @@
+<div role="group" class="example-tel-input-container"
+     [formGroup]="parts"
+     [attr.aria-labelledby]="_formField?.getLabelId()">
+  <input class="example-tel-input-element"
+         formControlName="annee" size="4"
+         maxLength="4"
+         aria-label="Annee"
+         (input)="_handleInput(parts.controls.annee, bureau)"
+         #annee>
+  <span class="example-tel-input-spacer">&ndash;</span>
+  <input class="example-tel-input-element"
+         formControlName="bureau"
+         maxLength="6"
+         size="6"
+         aria-label="Bureau"
+         (input)="_handleInput(parts.controls.bureau, numero)"
+         (keyup.backspace)="autoFocusPrev(parts.controls.bureau, annee)"
+         #bureau>
+  <span class="example-tel-input-spacer">&ndash;</span>
+  <input class="example-tel-input-element"
+         formControlName="numero"
+         maxLength="8"
+         size="8"
+         aria-label="Numero"
+         (input)="_handleInput(parts.controls.numero)"
+         (keyup.backspace)="autoFocusPrev(parts.controls.numero, bureau)"
+         #numero>
+</div>

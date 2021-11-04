@@ -1,0 +1,114 @@
+version: '3.1'
+
+services:
+
+  postgres-db:
+    image: postgres
+    restart: always
+    hostname: postgres-db
+    environment:
+      POSTGRES_DB: sagide
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+#    volumes:
+#      - ./init/db/postgres/edigraph_postgres.sql:/docker-entrypoint-initdb.d/edigraph_postgres.sql
+#       - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - gainde-network
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 4000:8080
+    networks:
+      - gainde-network
+
+  portainer:
+    image: portainer/portainer-ce
+    restart: always
+    ports:
+      - 8000:8000 
+      - 9000:9000 
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock 
+      - portainer_data:/data 
+    networks:
+      - gainde-network
+
+  zipkin:
+    image: openzipkin/zipkin
+    restart: always
+    ports:
+      - 9411:9411
+    networks:
+      - gainde-network
+
+  config-service:
+    image: gainde/config-service
+    restart: always
+    hostname: config-service
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - 8888:8888
+    volumes:
+      - /Users/kamel/application-config:/root/application-config
+    networks:
+      - gainde-network
+
+  manifeste-service:
+    image: gainde/manifeste-service
+    restart: always
+    environment:
+      SPRING_CLOUD_CONFIG_URI: http://config-service:8888
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - 8080:8080
+    networks:
+      - gainde-network
+
+  declaration-service:
+    image: gainde/declaration-service
+    restart: always
+    environment:
+      SPRING_CLOUD_CONFIG_URI: http://config-service:8888
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - 8081:8081
+    networks:
+      - gainde-network
+
+  gainde-admin:
+    image: gainde/gainde-admin
+    restart: always
+    hostname: gainde-admin
+    environment:
+      SPRING_CLOUD_CONFIG_URI: http://config-service:8888
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - 9105:9105
+    networks:
+      - gainde-network
+
+  gainde-auth:
+    image: gainde/gainde-auth
+    restart: always
+    environment:
+      SPRING_CLOUD_CONFIG_URI: http://config-service:8888
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - 8088:8088
+    networks:
+      - gainde-network
+
+
+networks:
+  gainde-network:
+    driver: bridge
+
+volumes:
+#   postgres-data:
+   portainer_data:

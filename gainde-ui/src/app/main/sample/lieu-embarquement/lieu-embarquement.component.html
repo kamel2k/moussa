@@ -1,0 +1,59 @@
+<div id="cards" class="page-layout simple fullwidth">
+
+   <!-- CONTENT CARD -->
+   <div class="content-card">
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <form name="declarationForm" [formGroup]="declarationForm" class="product w-100-p" fxLayout="column" fxFlex>
+
+            <mat-tab-group>
+
+                <mat-tab label="Basic Info">
+
+                    <div class="tab-content p-24" fusePerfectScrollbar>
+
+                      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                        <mat-label>Product Name</mat-label>
+                        <input matInput placeholder="Product Name"
+                               name="name"
+                               formControlName="name"
+                               required>
+                    </mat-form-field>
+
+                    </div>
+
+                </mat-tab>
+
+
+                <mat-tab label="Pricing">
+
+                    <div class="tab-content p-24" fusePerfectScrollbar>
+
+                        
+                    </div>
+                </mat-tab>
+
+                <mat-tab label="Inventory">
+
+                   
+
+                </mat-tab>
+
+                <mat-tab label="Shipping">
+
+
+                </mat-tab>
+
+            </mat-tab-group>
+
+        </form>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>
+<!-- / CONTENT CARD -->  
+
+</div>

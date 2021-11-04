@@ -1,0 +1,263 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+
+     <!-- TOP BACKGROUND -->
+     <div class="top-bg accent"></div>
+     <!-- / TOP BACKGROUND -->
+ 
+    <div class="center">
+         <!-- HEADER -->
+         <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+            
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+
+                <div fxLayout="column" fxLayoutAlign="start start" style="margin-top: 20px;"
+                     [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    
+                    <div class="h2 ml-4">
+                        Modification manifeste non enregistré
+                    </div>
+                    
+                </div>
+            </div>
+            <div>
+                <button mat-fab mat-raised-button color="primary" style="margin-top: 10px" (click)="openDialog()">
+                   <mat-icon mat-icon-button class="mr-2">save</mat-icon>
+                </button>
+            </div>
+            
+         </div>
+         <!-- / HEADER -->
+    <!-- CONTENT CARD -->
+    <div class="content-card">
+
+     <!-- CONTENT -->
+     <div class="content">
+ 
+         <form class="product w-100-p" fxLayout="column" fxFlex>
+ 
+             <mat-tab-group>
+ 
+                 <mat-tab label="Description">
+ 
+                     <div class="tab-content p-24" fusePerfectScrollbar>
+
+                              <form name="form" class="mat-card mat-elevation-z4 p-24">
+                                <div class="container_form">
+                                  <div class="form_line">
+                                    <div>
+                                      <mat-form-field appearance="standard" class="date_input">
+                                          <mat-label>N° répertoire</mat-label>
+                                          <input matInput [(ngModel)]="manifeste.numeroRepertoire" name="num_repertoire"/>
+                                      </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Type manifeste</mat-label>
+                                            <mat-select name="type_manifeste" [(ngModel)]="manifeste.typeManifeste">
+                                            <mat-option *ngFor="let type of type_manifestes" [value]="type">
+                                                {{type}}
+                                            </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                  
+                                  </div>
+                                </div>
+                                <div class="container_form">
+                                    <hr><br>
+                                    <div class="form_line_autres">
+                                        
+                                          
+                                          <div>
+                                              <mat-form-field appearance="fill">
+                                                  <mat-label>Bureau d'entrée</mat-label>
+                                                  <mat-select [(ngModel)]="manifeste.bureauEntree" name="bureau_entree">
+                                                    <mat-option *ngFor="let bureau of bureaux" [value]="bureau">
+                                                      {{bureau}}
+                                                    </mat-option>
+                                                  </mat-select>
+                                                </mat-form-field>
+                                          </div>
+                                          <div>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Bureau Enregistrement</mat-label>
+                                                <mat-select [(ngModel)]="manifeste.bureauEnregistrement" name="bureau_enregistrement">
+                                                  <mat-option *ngFor="let bureau of bureaux" [value]="bureau">
+                                                    {{bureau}}
+                                                  </mat-option>
+                                                </mat-select>
+                                              </mat-form-field>
+                                        </div>
+                                          
+                                    </div>
+                                    <div class="form_line_autres">
+                                      <div>
+                                          
+                                          <mat-form-field appearance="standard" class="date_input">
+                                            <mat-label>Date arrivée</mat-label>
+                                            <input matInput [matDatepicker]="picker2" name="date_arrivee" [(ngModel)]="manifeste.dateArrivee" />
+                                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                                          </mat-form-field>
+                                          
+                                        </div>
+                                        <div>
+                                            
+                                            <mat-form-field appearance="standard" class="date_input">
+                                                <mat-label>Provenance</mat-label>
+                                                <input matInput type="text" maxlength="2" name="provenance" [(ngModel)]="manifeste.provenance"/>
+                                              </mat-form-field>
+                                        </div>
+                                      
+                                        <div>
+                                          
+                                          <mat-form-field appearance="standard" class="date_input">
+                                            <mat-label>Valeur approximative</mat-label>
+                                            <input matInput type="number" name="valeur_appro" [(ngModel)]="manifeste.valeurApproximative" />
+                                          </mat-form-field>
+                                        </div>
+                                  </div>
+                                  <div class="form_line_autres">
+                                      <div>
+                                        
+                                        <mat-form-field appearance="standard" class="date_input">
+                                            <mat-label>N° vol/voyage</mat-label>
+                                            <input matInput name="num_vol_voyage" [(ngModel)]="manifeste.numeroVolVoyage"/>
+                                          </mat-form-field>
+                                      </div>
+                                      <div>
+                                        
+                                        <mat-form-field appearance="standard" class="date_input">
+                                          <mat-label>Pavillon</mat-label>
+                                          <input matInput type="text" maxlength="2" name="pavillon" [(ngModel)]="manifeste.pavillon" />
+                                        </mat-form-field>
+                                      </div>
+                                        
+                                        <div>
+                                            
+                                            <mat-form-field appearance="standard" class="date_input">
+                                              <mat-label>Capacité nette</mat-label>
+                                              <input matInput type="number" name="capacite_nette" [(ngModel)]="manifeste.capaciteNette"/>
+                                            </mat-form-field>
+                                          </div>
+                                    </div>
+                                    <div class="form_line_autres">
+                                        
+                                        <div>
+                                            <mat-form-field appearance="standard" class="date_input">
+                                                <mat-label>Moyen transport</mat-label>
+                                                <input matInput name="moyen_transport" [(ngModel)]="manifeste.moyenTransport"/>
+                                              </mat-form-field>
+                                        </div>  
+                                          <div>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Type navire</mat-label>
+                                                <mat-select [(ngModel)]="manifeste.typeNavire" name="type_navire">
+                                                  <mat-option *ngFor="let bureau of bureaux" [value]="bureau">
+                                                    {{bureau}}
+                                                  </mat-option>
+                                                </mat-select>
+                                              </mat-form-field>
+                                        </div>
+                                        <div>
+                                            
+                                            <mat-form-field appearance="standard" class="date_input">
+                                              <mat-label>Capacité brute</mat-label>
+                                              <input matInput type="number" name="capacite_brute" [(ngModel)]="manifeste.capaciteBrute"/>
+                                            </mat-form-field>
+                                          </div>
+                                    </div>
+                                        
+                                  </div>
+                                </form>    
+                          
+                     </div>
+ 
+                 </mat-tab>
+ 
+ 
+                 <mat-tab label="Articles">
+ 
+                     <div class="tab-content p-24" fusePerfectScrollbar>
+                        <div class="example-container">
+                            <div class="mat-elevation-z8">
+                              <table mat-table [dataSource]="dataSource">
+                                
+                                <ng-container matColumnDef="position">
+                                    <th *matHeaderCellDef></th>
+                                    <td mat-cell *matCellDef="let element; let i=index"> 
+                                      <mat-checkbox [(ngModel)]="element.checked" name="checkbox_element" 
+                                                    (click)="$event.stopPropagation()"
+                                                    (change)="$event ? selection.toggle(element) : null"
+                                                    [checked]="selection.isSelected(element)"
+                                      ></mat-checkbox>
+                                    </td>
+                                  </ng-container>
+                                <!-- Position Column -->
+                                <ng-container matColumnDef="num_article">
+                                  <th mat-header-cell *matHeaderCellDef>N° Article</th>
+                                  <td mat-cell *matCellDef="let element">{{ element.numero }}</td>
+                                </ng-container>
+                        
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="transport">
+                                  <th mat-header-cell *matHeaderCellDef>Titre transport</th>
+                                  <td mat-cell *matCellDef="let element">{{ element.titreTransport }}</td>
+                                </ng-container>
+                        
+                                <!-- Weight Column -->
+                                <ng-container matColumnDef="nbre_colis">
+                                  <th mat-header-cell *matHeaderCellDef>Nbre. Colis</th>
+                                  <td mat-cell *matCellDef="let element">
+                                    {{ element.nombreColis }}
+                                  </td>
+                                </ng-container>
+                        
+                                <!-- Symbol Column -->
+                                <ng-container matColumnDef="mode_conditionnement">
+                                  <th mat-header-cell *matHeaderCellDef>Mode Conditionnement</th>
+                                  <td mat-cell *matCellDef="let element">
+                                    {{ element.modeConditionnement }}
+                                  </td>
+                                </ng-container>
+                        
+                                <ng-container matColumnDef="poids_brut">
+                                  <th mat-header-cell *matHeaderCellDef>Poids Brut</th>
+                                  <td mat-cell *matCellDef="let element">{{ element.poidsBrut }}</td>
+                                </ng-container>
+                        
+                                <ng-container matColumnDef="desig_commerciale">
+                                  <th mat-header-cell *matHeaderCellDef>Desig. Commerciale</th>
+                                  <td mat-cell *matCellDef="let element">{{ element.designationCommerciale }}</td>
+                                </ng-container>
+                        
+                        
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns" 
+                                    (click)="selection.toggle(row)"></tr>
+                              </table>
+                              
+                              <mat-paginator
+                                [pageSizeOptions]="[5, 10, 20]"
+                                showFirstLastButtons
+                              ></mat-paginator>
+                            </div>
+                            
+                          </div>
+                         
+                     </div>
+                 </mat-tab>
+ 
+             </mat-tab-group>
+ 
+         </form>
+ 
+     </div>
+     <!-- / CONTENT -->
+ 
+    </div>
+ <!-- / CONTENT CARD -->  
+    </div>
+ </div>
+ 

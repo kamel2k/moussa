@@ -1,0 +1,255 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg accent"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center">
+
+      <!-- HEADER -->
+      <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+          <!-- APP TITLE -->
+          <div fxLayout="row" fxLayoutAlign="start center">
+
+              <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/accueil'">
+                  <mat-icon>arrow_back</mat-icon>
+              </button>
+
+
+              <div fxLayout="column" fxLayoutAlign="start start"
+                   [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+  
+                  <div class="h2" >
+                      Enregistrement manifeste
+                  </div>
+                  
+              </div>
+          </div>
+          <!-- / APP TITLE -->
+          <div>
+            <button 
+                mat-fab color="primary" 
+                style="margin-top: 20px" aria-label="Rechercher manifestes"
+                (click)="getBrouillonManifestes()"
+            >
+                
+                <mat-icon>search</mat-icon>
+            </button>
+        </div>
+      </div>
+      <!-- / HEADER -->
+
+      <!-- CONTENT CARD -->
+      <div class="content-card">
+    <form name="form" class="mat-card mat-elevation-z4 p-24">
+      <div class="container_form">
+        <h5>Période de création</h5>
+        <div class="form_line">
+            <div>
+              <!-- Remember me -->
+              <mat-form-field appearance="outline" class="date_input">
+                <mat-label>Date début</mat-label>
+                <input name="debut" matInput type="date" placeholder="Date début" [(ngModel)]="form.debut" />             
+              </mat-form-field>
+            </div>
+            <div>
+              <!-- Forgot password -->
+              <mat-form-field appearance="outline" class="date_input">
+                <mat-label>Date fin</mat-label>
+                <input name="fin" matInput type="date" placeholder="Date fin" [(ngModel)]="form.fin"/>
+              </mat-form-field>
+            </div>
+        </div>
+      </div>
+      <div class="container_form">
+          <hr><br><h5>Autres critères</h5>
+          <div class="form_line_autres">
+                <div>
+                    <!-- Remember me -->
+                    <mat-form-field appearance="outline" class="date_input">
+                        <mat-label>N° répertoire</mat-label>
+                        <input matInput />
+                      </mat-form-field>
+                  </div>
+                <!-- Remember me -->
+                <div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Bureau</mat-label>
+                        <mat-select [(ngModel)]="bureau" name="food">
+                          <mat-option *ngFor="let bureau of bureaux" [value]="bureau">
+                            {{bureau}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+                <div>
+                <!-- Forgot password -->
+                <mat-form-field appearance="fill">
+                    <mat-label>Type manifeste</mat-label>
+                    <mat-select [(ngModel)]="type_manifeste" name="food">
+                      <mat-option *ngFor="let type of type_manifestes" [value]="type">
+                        {{type}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+              </div>
+              
+          </div>
+          <div class="form_line_autres">
+            <div>
+                <!-- Forgot password -->
+                <mat-form-field appearance="outline" class="date_input">
+                  <mat-label>Date arrivée</mat-label>
+                  <input matInput type="date" placeholder="Date fin" />
+                </mat-form-field>
+              </div>
+            <div>
+              <!-- Forgot password -->
+              <mat-form-field appearance="outline" class="date_input">
+                <mat-label>Date création</mat-label>
+                <input matInput type="date" placeholder="Date fin" />
+              </mat-form-field>
+            </div>
+            <div>
+                <!-- Remember me -->
+                <mat-form-field appearance="outline" class="date_input">
+                    <mat-label>Titre de transport</mat-label>
+                    <input matInput />
+                  </mat-form-field>
+              </div>
+              <div>
+                <!-- Forgot password -->
+                <mat-form-field appearance="outline" class="date_input">
+                  <mat-label>Année création</mat-label>
+                  <input matInput type="number" placeholder="" />
+                </mat-form-field>
+              </div>
+        </div>
+        <div class="form_line_autres">
+            <div>
+              <!-- Remember me -->
+              <mat-form-field appearance="outline" class="date_input">
+                  <mat-label>N° vol/voyage</mat-label>
+                  <input matInput />
+                </mat-form-field>
+            </div>
+            <div>
+              <!-- Forgot password -->
+              <mat-form-field appearance="outline" class="date_input" style="width: 400px !important;">
+                <mat-label>Lieu d'embarquement</mat-label>
+                <input matInput />
+              </mat-form-field>
+            </div>
+              <div>
+                <!-- Forgot password -->
+                <mat-form-field appearance="outline" class="date_input">
+                  <mat-label>N° Article</mat-label>
+                  <input matInput />
+                </mat-form-field>
+              </div>
+        </div>
+              
+        </div>
+      </form>    
+  </div>
+      
+  <div
+    class="header primary"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    id="results"
+  >
+    <div fxLayout="column" fxLayoutAlign="center start">
+      <div class="h4">
+        <h4>Résultat de la recherche</h4>
+      </div>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center end">
+      <div>
+        <mat-icon matSuffix>arrow_circle_down</mat-icon>
+      </div>
+    </div>
+  </div>
+  <div class="example-container">
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource">
+        <!-- Position Column -->
+        <ng-container matColumnDef="numeroRepertoire">
+          <th mat-header-cell *matHeaderCellDef>N° répertoire</th>
+          <td mat-cell *matCellDef="let element">{{ element.numeroRepertoire }}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="bureauEntree">
+          <th mat-header-cell *matHeaderCellDef>Bureau</th>
+          <td mat-cell *matCellDef="let element">{{ element.bureauEntree }}</td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="moyenTransport">
+          <th mat-header-cell *matHeaderCellDef>Moyen Transport</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.moyenTransport }}
+          </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="typeManifeste">
+          <th mat-header-cell *matHeaderCellDef>Type manifeste</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.typeManifeste }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dateArrivee">
+          <th mat-header-cell *matHeaderCellDef>Date arrivée</th>
+          <td mat-cell *matCellDef="let element">{{ element.dateArrivee }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="dateEnregistrement">
+          <th mat-header-cell *matHeaderCellDef>Date Enreg.</th>
+          <td mat-cell *matCellDef="let element">{{ element.dateEnregistrement }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="origine">
+          <th mat-header-cell *matHeaderCellDef>Origine</th>
+          <td mat-cell *matCellDef="let element">{{ element.origine }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="consignature">
+          <th mat-header-cell *matHeaderCellDef>Consignature</th>
+          <td mat-cell *matCellDef="let element">{{ element.consignature }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" 
+                [ngClass]="{selected: selection.isSelected(row)}"
+                (click)="selectedEvent($event, row)"
+                (dblclick)="modifierManifeste(row.id)"
+                >
+        </tr>
+      </table>
+
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+      ></mat-paginator>
+    </div>
+    <!--<button mat-raised-button color="accent" style="margin-top: 10px" (click)="openDialog()">
+      Enreg. Définitif
+    </button> -->
+    <button
+      mat-raised-button
+      color="accent"
+      style="margin-top: 20px;
+            width: 150px;
+            margin-bottom: 20px;"
+      (click)="modifierManifeste(selectedRow.id)"
+      [disabled]="selection.isEmpty()"
+    >
+      Détails
+    </button>
+  </div>
+</div>
